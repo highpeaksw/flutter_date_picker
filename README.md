@@ -1,6 +1,6 @@
 # flutter_cupertino_date_picker
 
-A new Flutter project.
+Cupertino Date Picker component for Flutter
 
 ## Getting Started
 
