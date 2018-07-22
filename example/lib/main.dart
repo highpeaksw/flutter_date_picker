@@ -47,7 +47,17 @@ class _MyHomePageState extends State<MyHomePage> {
           (BuildContext context) {
             return DateOfBirth(
               key: dobKey,
-              setDateOfBirth: _setDateOfBirth,
+              setDate: _setDateOfBirth,
+              customItemColor: Color(0xFF3949AB),
+              customShape: StadiumBorder(
+                side: BorderSide(
+                  color: Color(0xFF3949AB),
+                ),
+              ),
+              customGradient: LinearGradient(colors: [
+                Color(0xFF000000),
+                Color(0xFF3949AB),
+              ]),
             );
           },
         )
@@ -70,12 +80,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ' ${dobKey.currentState.dobYear}');
   }
 
-  Widget dobComponent() {
-    return DateOfBirth(
-      key: dobKey,
-      setDateOfBirth: _setDateOfBirth,
-    );
-  }
+  // Widget dobComponent() {
+  //   return DateOfBirth(
+  //     key: dobKey,
+  //     customItemColor: Color(0xFF000000),
+  //     setDate: _setDateOfBirth,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

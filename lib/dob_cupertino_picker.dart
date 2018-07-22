@@ -45,6 +45,8 @@ class CustomCupertinoPicker extends StatefulWidget {
     this.diameterRatio = _kDefaultDiameterRatio,
     this.backgroundColor = _kDefaultBackground,
     this.scrollController,
+    this.customColor,
+    this.customShape,
     @required this.itemExtent,
     @required this.onSelectedItemChanged,
     @required this.children,
@@ -54,6 +56,13 @@ class CustomCupertinoPicker extends StatefulWidget {
         assert(itemExtent != null),
         assert(itemExtent > 0),
         super(key: key);
+
+  /// BackgroundColor for the selected item (Month/date/year)
+
+  final Color customColor;
+
+  /// Custom shape for the selected item
+  final ShapeBorder customShape;
 
   /// Relative ratio between this picker's height and the simulated cylinder's diameter.
   ///
@@ -169,11 +178,13 @@ class _CupertinoPickerState extends State<CustomCupertinoPicker> {
           ),
           Container(
             decoration: ShapeDecoration(
-              shape: StadiumBorder(
-                  side: BorderSide(
-                color: Color(0xFFF991A0),
-              )),
-              color: Color(0xFFF991A0),
+              shape: widget.customShape,
+              //  StadiumBorder(
+              //   side: BorderSide(
+              //     color: widget.customColor,
+              //   ),
+              // ),
+              color: widget.customColor,
             ),
             constraints: BoxConstraints.expand(height: widget.itemExtent),
           ),
