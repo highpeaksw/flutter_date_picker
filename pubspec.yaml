@@ -1,6 +1,6 @@
 name: flutter_date_picker
 description: Cupertino styled date picker component which works on both ios and android.
-version: 0.1.1
+version: 0.1.2
 author: Rajesh Kumar <rajesh.kumar@highpeaksw.com>
 homepage: https://github.com/rajeshzmoke/flutter_date_picker
 

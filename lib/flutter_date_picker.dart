@@ -19,8 +19,8 @@ const List<String> monthNames = const <String>[
 
 const LinearGradient zGradient =
     const LinearGradient(begin: Alignment(-0.5, 1.0), colors: [
-  Color(0xFF289CF1),
-  Color(0xFFF0F1F7),
+  Color(0xFFF98495),
+  Color(0xFF595DC2),
 ]);
 
 /// Color of the item background
@@ -46,9 +46,10 @@ class DateOfBirth extends StatefulWidget {
     this.customGradient = zGradient,
   }) : super(key: key);
 
-  /// function to get the
+  /// Function to get the data
   final Function setDate;
 
+  /// Custom LinerGradient for the submit button
   final LinearGradient customGradient;
 
   /// BackgroundColor for the selected item (Month/date/year)

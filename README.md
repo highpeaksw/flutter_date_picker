@@ -2,27 +2,49 @@
 
 ## Cupertino styled date picker component which works on both ios and android.
 
----
+[![Pub](https://img.shields.io/pub/v/flutter_date_picker.svg)](https://pub.dartlang.org/packages/flutter_date_picker)
 
-> Use this date_picker component inside a bottom modal view.
+---
 
 # Example
 
-For example on how to use the component [repo](https://github.com/rajeshzmoke/Flutter_cupertino_date_picker).
+For example on how to use the component [repo](https://github.com/rajeshzmoke/flutter_date_picker/tree/master/example).
 
-# Issues
+## Features
 
-For issues, file directly in the [date_picker repo](https://github.com/rajeshzmoke/Flutter_cupertino_date_picker/issues).
+- CustomShape for Selected Item.
+- CustomGradient for Submit Button.
+- CustomItemColor for Selected Item.
 
-![Cupertino_date_picker](https://github.com/rajeshzmoke/Flutter_cupertino_date_picker/blob/master/Screenshot_1527169019.png)
+![Cupertino_date_picker](https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_blue.gif)
+![Screenshot](https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_green.gif)
+![Screenshot](https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_pink.gif)
+
+## Getting started
+
+In the `pubspec.yaml` of your flutter project, add the following dependency:
+
+```yaml
+dependencies:
+  ...
+  flutter_date_picker: "^0.1.2"
+```
+
+In your library add the following import:
+
+```dart
+import import 'package:flutter_date_picker/flutter_date_picker.dart';
+```
+
+For help getting started with Flutter, view the online [documentation](https://flutter.io/).
 
 # Usage
 
-Let's demo the basic usage
+Let's demo the basic usage with CustomItemColor, CustomShape and CustomGradient
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:date_picker/date_picker.dart';
+import 'package:flutter_date_picker/flutter_date_picker.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,34 +67,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  int _selectedMonthIndex = 0;
-  int _selectedDateIndex = 0;
-  int _selectedYearIndex = 0;
-  bool _extendedButtons = false;
+
   VoidCallback _showBottomSheetCallback;
+  bool showDatePicker = false;
 
   @override
   void initState() {
     super.initState();
+
     _showBottomSheetCallback = _showBottomSheet;
-  }
-
-  setMonth(int index) {
-    setState(() {
-      _selectedMonthIndex = index;
-    });
-  }
-
-  setDate(int index) {
-    setState(() {
-      _selectedDateIndex = index;
-    });
-  }
-
-  setYear(int index) {
-    setState(() {
-      _selectedYearIndex = index;
-    });
   }
 
   void _snackBar(String text) {
@@ -80,22 +83,31 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _showBottomSheet() {
-    final FixedExtentScrollController scrollController =
-        FixedExtentScrollController(initialItem: _selectedMonthIndex);
-
     setState(() {
       _showBottomSheetCallback = null;
     });
     _scaffoldKey.currentState
-        .showBottomSheet<Null>((BuildContext context) {
-          final ThemeData themeData = Theme.of(context);
-          return DatePickerComponent(
-              setMonth: setMonth,
-              setDate: setDate,
-              setYear: setYear,
-              themeData: themeData,
-              scrollController: scrollController);
-        })
+        .showBottomSheet<Null>(
+          (BuildContext context) {
+            return DateOfBirth(
+              key: dobKey,
+              setDate: _setDateOfBirth,
+              customItemColor: Color(0xFF3949AB), //Change it as you wish
+               customShape: BeveledRectangleBorder(
+                 borderRadius: BorderRadius.only(
+                   topLeft: Radius.circular(15.0),
+                   topRight: Radius.circular(15.0),
+                   bottomLeft: Radius.circular(15.0),
+                   bottomRight: Radius.circular(15.0),
+                 ),
+               ), //Give your own shape
+              customGradient: LinearGradient(colors: [
+                Color(0xFF000000),
+                Color(0xFF3949AB),
+              ]),//your own colors for gradient
+            );
+          },
+        )
         .closed
         .whenComplete(() {
           if (mounted) {
@@ -106,29 +118,12 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  buildFloatingActionButton() {
-    if (_extendedButtons == true)
-      return Container(
-        width: 78.0,
-        height: 32.0,
-        child: FloatingActionButton(
-          isExtended: true,
-          onPressed: () {
-            setState(() {
-              _extendedButtons = false;
-            });
-            Navigator.of(context).pop();
+  void _setDateOfBirth() {
+    Navigator.of(context).pop();
 
-            _snackBar(monthNames[_selectedMonthIndex] +
-                ' ${_selectedDateIndex + 1}' +
-                ' ${1950 + _selectedYearIndex}');
-          },
-          child: Text('Submit'),
-          backgroundColor: Color.fromRGBO(0, 0, 70, 1.0),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        ),
-      );
+    _snackBar(dobKey.currentState.dobStrMonth +
+        ' ${dobKey.currentState.dobDate}' +
+        ' ${dobKey.currentState.dobYear}');
   }
 
   @override
@@ -146,15 +141,14 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Text('Date Picker'),
           onPressed: () {
             _showBottomSheet();
-            setState(() {
-              _extendedButtons = true;
-            });
           },
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: buildFloatingActionButton(),
     );
   }
 }
 ```
+
+## Changelog
+
+Please see the [Changelog](https://github.com/rajeshzmoke/flutter_date_picker/blob/master/CHANGELOG.md) page to know what's recently changed.
