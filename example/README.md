@@ -2,7 +2,7 @@
 
 Cupertino Date Picker component for Flutter
 
-![Cupertino_date_picker](https://github.com/rajeshzmoke/Flutter_date_picker/blob/master/Screenshot_1527169019.png)
+![Cupertino_date_picker](https://github.com/rajeshzmoke/flutter_date_picker/blob/master/example/Screenshot_1532286661.png)
 
 ## Getting Started
 
