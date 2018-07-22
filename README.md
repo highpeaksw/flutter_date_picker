@@ -1,10 +1,8 @@
-# date_picker
+# flutter_date_picker
 
 ## Cupertino styled date picker component which works on both ios and android.
 
 [![Pub](https://img.shields.io/pub/v/flutter_date_picker.svg)](https://pub.dartlang.org/packages/flutter_date_picker)
-
----
 
 # Example
 
