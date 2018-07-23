@@ -53,10 +53,10 @@ class DateOfBirth extends StatefulWidget {
   final LinearGradient customGradient;
 
   /// BackgroundColor for the selected item (Month/date/year)
-  Color customItemColor;
+  final Color customItemColor;
 
   /// Custom shape for the selected item
-  ShapeBorder customShape;
+  final ShapeBorder customShape;
 
   @override
   DateOfBirthState createState() => DateOfBirthState();
