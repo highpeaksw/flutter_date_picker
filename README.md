@@ -31,7 +31,7 @@ dependencies:
 In your library add the following import:
 
 ```dart
-import import 'package:flutter_date_picker/flutter_date_picker.dart';
+import 'package:flutter_date_picker/flutter_date_picker.dart';
 ```
 
 For help getting started with Flutter, view the online [documentation](https://flutter.io/).
