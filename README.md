@@ -14,9 +14,21 @@ For example on how to use the component [repo](https://github.com/rajeshzmoke/fl
 - CustomGradient for Submit Button.
 - CustomItemColor for Selected Item.
 
-![Cupertino_date_picker](https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_blue.gif)
-![Screenshot](https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_green.gif)
-![Screenshot](https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_pink.gif)
+<div style="text-align: center">
+  <table>
+    <tr>
+      <td style="text-align: center">
+        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_blue.gif" width="330" />
+      </td>
+      <td style="text-align: center">
+        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_green.gif" width="330" />
+      </td>
+      <td style="text-align: center">
+        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_pink.gif" width="330" />
+      </td>
+    </tr>
+  </table>
+ </div>
 
 ## Getting started
 
