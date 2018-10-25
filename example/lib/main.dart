@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_date_picker/flutter_date_picker.dart';
+import 'package:flutter_date_picker/flutter_time_picker.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,7 +25,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  VoidCallback _showBottomSheetCallback;
+  Function _showBottomSheetCallback;
   bool showDatePicker = false;
 
   @override
@@ -38,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(text)));
   }
 
-  _showBottomSheet() {
+  _showBottomSheet(String picker) {
     setState(() {
       // disable the button
       _showBottomSheetCallback = null;
@@ -46,10 +47,44 @@ class _MyHomePageState extends State<MyHomePage> {
     _scaffoldKey.currentState
         .showBottomSheet<Null>(
           (BuildContext context) {
-            return DateOfBirth(
-              key: dobKey,
-              setDate: _setDateOfBirth,
-            );
+            switch (picker) {
+              case 'DatePicker':
+                return DatePicker(
+                  key: dobKey,
+                  setDate: _setDate,
+                  customShape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.0),
+                      topRight: Radius.circular(15.0),
+                      bottomLeft: Radius.circular(15.0),
+                      bottomRight: Radius.circular(15.0),
+                    ),
+                  ),
+                  customItemColor: Color(0xFFba5905),
+                  customGradient:
+                      LinearGradient(begin: Alignment(-0.5, 1.0), colors: [
+                    Color(0xFFba5905),
+                    Color(0xFFefcaaa),
+                    Color(0xFFba5905),
+                  ]),
+                );
+              case 'TimePicker':
+                return TimePicker(
+                  key: tobKey,
+                  setTime: _setTime,
+                  customShape: StadiumBorder(
+                      side: BorderSide(
+                    color: Color(0xFFba5905),
+                  )),
+                  customItemColor: Color(0xFFba5905),
+                  customGradient:
+                      LinearGradient(begin: Alignment(-0.5, 1.0), colors: [
+                    Color(0xFFba5905),
+                    Color(0xFFefcaaa),
+                    Color(0xFFba5905),
+                  ]),
+                );
+            }
           },
         )
         .closed
@@ -63,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  void _setDateOfBirth() {
+  void _setDate() {
     Navigator.of(context).pop();
 
     _snackBar(dobKey.currentState.dobStrMonth +
@@ -71,23 +106,55 @@ class _MyHomePageState extends State<MyHomePage> {
         ' ${dobKey.currentState.dobYear}');
   }
 
+  void _setTime() {
+    Navigator.of(context).pop();
+    var hour = tobKey.currentState.hour;
+
+    var min = tobKey.currentState.minute;
+
+    var sec = tobKey.currentState.seconds;
+
+    _snackBar("$hour:$min:$sec ${tobKey.currentState.sunOrMoon}");
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: Color(0xFFF98495),
-        title: Text('Date Picker'),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(10.0),
-        alignment: Alignment.topCenter,
-        child: RaisedButton(
-          color: Color(0xFFF98495),
-          child: Text('Date Picker'),
-          onPressed: () {
-            _showBottomSheet();
-          },
+    return SafeArea(
+      bottom: false,
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: Color(0xFFba5905),
+          title: Text('Date and Time Picker'),
+        ),
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(10.0),
+              alignment: Alignment.topCenter,
+              child: RaisedButton(
+                textColor: Colors.white,
+                color: Color(0xFFba5905),
+                child: Text('Date Picker'),
+                onPressed: () {
+                  _showBottomSheet('DatePicker');
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              alignment: Alignment.topCenter,
+              child: RaisedButton(
+                textColor: Colors.white,
+                color: Color(0xFFba5905),
+                child: Text('Time Picker'),
+                onPressed: () {
+                  _showBottomSheet('TimePicker');
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

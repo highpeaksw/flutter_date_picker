@@ -1,3 +1,7 @@
+## 0.1.3
+
+- Added Time Picker Component (hr:min:sec)
+
 ## 0.1.2
 
 - Changed the Picker UI to make it more easy to use.

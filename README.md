@@ -1,6 +1,6 @@
 # flutter_date_picker
 
-## Cupertino styled date picker component which works on both ios and android.
+## Cupertino styled date and time picker component which works on both ios and android.
 
 [![Pub](https://img.shields.io/pub/v/flutter_date_picker.svg)](https://pub.dartlang.org/packages/flutter_date_picker)
 
@@ -10,6 +10,8 @@ For example on how to use the component [repo](https://github.com/rajeshzmoke/fl
 
 ## Features
 
+- Seperate Date picker Component.
+- Seperate Time picker Component.
 - CustomShape for Selected Item.
 - CustomGradient for Submit Button.
 - CustomItemColor for Selected Item.
@@ -18,13 +20,13 @@ For example on how to use the component [repo](https://github.com/rajeshzmoke/fl
   <table>
     <tr>
       <td style="text-align: center">
-        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_blue.gif" width="330" />
+        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_time_blue.gif" width="330" />
       </td>
       <td style="text-align: center">
-        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_green.gif" width="330" />
+        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_time_green.gif" width="330" />
       </td>
       <td style="text-align: center">
-        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_picker_pink.gif" width="330" />
+        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_time_brown.gif" width="330" />
       </td>
     </tr>
   </table>
@@ -37,13 +39,14 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 ```yaml
 dependencies:
   ...
-  flutter_date_picker: "^0.1.2"
+  flutter_date_picker: "^0.1.3"
 ```
 
 In your library add the following import:
 
 ```dart
 import 'package:flutter_date_picker/flutter_date_picker.dart';
+import 'package:flutter_date_picker/flutter_time_picker.dart';
 ```
 
 For help getting started with Flutter, view the online [documentation](https://flutter.io/).
@@ -55,6 +58,7 @@ Let's demo the basic usage with CustomItemColor, CustomShape and CustomGradient
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_date_picker/flutter_date_picker.dart';
+import 'package:flutter_date_picker/flutter_time_picker.dart';
 
 void main() => runApp(MyApp());
 
@@ -92,43 +96,52 @@ class _MyHomePageState extends State<MyHomePage> {
     _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(text)));
   }
 
-  _showBottomSheet() {
+   _showBottomSheet(String picker) {
     setState(() {
+      // disable the button
       _showBottomSheetCallback = null;
     });
     _scaffoldKey.currentState
         .showBottomSheet<Null>(
           (BuildContext context) {
-            return DateOfBirth(
-              key: dobKey,
-              setDate: _setDateOfBirth,
-              customItemColor: Color(0xFF3949AB), //Change it as you wish
-               customShape: BeveledRectangleBorder(
-                 borderRadius: BorderRadius.only(
-                   topLeft: Radius.circular(15.0),
-                   topRight: Radius.circular(15.0),
-                   bottomLeft: Radius.circular(15.0),
-                   bottomRight: Radius.circular(15.0),
-                 ),
-               ), //Give your own shape
-              customGradient: LinearGradient(colors: [
-                Color(0xFF000000),
-                Color(0xFF3949AB),
-              ]),//your own colors for gradient
-            );
+            switch (picker) {
+              case 'DatePicker':
+                return DatePicker(
+                  key: dobKey,
+                  setDate: _setDate,
+                  customShape: StadiumBorder(
+                      side: BorderSide(
+                    color: Color(0xFFF991A0),
+                  )),
+                );
+              case 'TimePicker':
+                return TimePicker(
+                  key: tobKey,
+                  setTime: _setTime,
+                  customShape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.0),
+                      topRight: Radius.circular(15.0),
+                      bottomLeft: Radius.circular(15.0),
+                      bottomRight: Radius.circular(15.0),
+                    ),
+                  ),
+                );
+            }
           },
         )
         .closed
         .whenComplete(() {
           if (mounted) {
             setState(() {
+              // re-enable the button
               _showBottomSheetCallback = _showBottomSheet;
             });
           }
         });
   }
 
-  void _setDateOfBirth() {
+  void _setDate() {
     Navigator.of(context).pop();
 
     _snackBar(dobKey.currentState.dobStrMonth +
@@ -136,22 +149,53 @@ class _MyHomePageState extends State<MyHomePage> {
         ' ${dobKey.currentState.dobYear}');
   }
 
+  void _setTime() {
+    Navigator.of(context).pop();
+    var hour = tobKey.currentState.hour;
+
+    var min = tobKey.currentState.minute;
+
+    var sec = tobKey.currentState.seconds;
+
+    _snackBar("$hour:$min:$sec ${tobKey.currentState.sunOrMoon}");
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text('Date Picker'),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(10.0),
-        alignment: Alignment.topCenter,
-        child: RaisedButton(
-          color: Colors.blue,
-          child: Text('Date Picker'),
-          onPressed: () {
-            _showBottomSheet();
-          },
+    return SafeArea(
+      bottom: false,
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: Color(0xFFF98495),
+          title: Text('Date Picker'),
+        ),
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(10.0),
+              alignment: Alignment.topCenter,
+              child: RaisedButton(
+                color: Color(0xFFF98495),
+                child: Text('Date Picker'),
+                onPressed: () {
+                  _showBottomSheet('DatePicker');
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              alignment: Alignment.topCenter,
+              child: RaisedButton(
+                color: Color(0xFFF98495),
+                child: Text('Time Picker'),
+                onPressed: () {
+                  _showBottomSheet('TimePicker');
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -35,10 +35,10 @@ const ShapeBorder zShape = const BeveledRectangleBorder(
 );
 
 ///Global key to access the getters
-final dobKey = GlobalKey<DateOfBirthState>();
+final dobKey = GlobalKey<DatePickerState>();
 
-class DateOfBirth extends StatefulWidget {
-  DateOfBirth({
+class DatePicker extends StatefulWidget {
+  DatePicker({
     Key key,
     @required this.setDate,
     this.customItemColor = zItemColor,
@@ -59,10 +59,10 @@ class DateOfBirth extends StatefulWidget {
   final ShapeBorder customShape;
 
   @override
-  DateOfBirthState createState() => DateOfBirthState();
+  DatePickerState createState() => DatePickerState();
 }
 
-class DateOfBirthState extends State<DateOfBirth> {
+class DatePickerState extends State<DatePicker> {
   DateTime _date = DateTime.now();
 
   int _selectedMonth;
@@ -72,7 +72,7 @@ class DateOfBirthState extends State<DateOfBirth> {
 
   int get dobMonth => _selectedMonth;
   int get dobDate => _selectedDate + 1;
-  int get dobYear => (_date.year - 100) + _selectedYear;
+  int get dobYear => (_date.year - 118) + _selectedYear;
   String get dobStrMonth => _dobMonth;
 
   @override
@@ -80,7 +80,7 @@ class DateOfBirthState extends State<DateOfBirth> {
     super.initState();
     _selectedMonth = _date.month - 1;
     _selectedDate = _date.day - 1;
-    _selectedYear = _date.year;
+    _selectedYear = 74;
 
     _dobMonth = monthNames[_date.month - 1];
   }
@@ -215,11 +215,11 @@ class DateOfBirthState extends State<DateOfBirth> {
                           _selectedYear = index;
                         });
                       },
-                      children: List<Widget>.generate(100, (int index) {
+                      children: List<Widget>.generate(118, (int index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 6.0),
                           child: Text(
-                            '${(_date.year - 100) + index}',
+                            '${(_date.year - 118) + index}',
                             style: TextStyle(
                               color: _selectedYear == index
                                   ? Colors.white
