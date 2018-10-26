@@ -84,7 +84,6 @@ class TimeOfBirthState extends State<TimePicker> {
     _selectedSec = seconds;
     _selectedTime = date.hour < 12 ? 0 : 1;
     _selectedAMPM = date.hour < 12 ? 'AM' : 'PM';
-    print('selected hour $_selectedHour');
   }
 
   _setSelectedHour(int index) {
