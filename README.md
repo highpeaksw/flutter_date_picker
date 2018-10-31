@@ -20,13 +20,13 @@ For example on how to use the component [repo](https://github.com/rajeshzmoke/fl
   <table>
     <tr>
       <td style="text-align: center">
-        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_time_blue.gif" width="330" />
+        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_time_blue.gif" width="200" />
       </td>
       <td style="text-align: center">
-        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_time_green.gif" width="330" />
+        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_time_green.gif" width="200" />
       </td>
       <td style="text-align: center">
-        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_time_brown.gif" width="330" />
+        <img src="https://github.com/rajeshzmoke/flutter_date_picker/blob/master/screenshot/date_time_brown.gif" width="200" />
       </td>
     </tr>
   </table>
@@ -39,7 +39,7 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 ```yaml
 dependencies:
   ...
-  flutter_date_picker: "^0.1.6"
+  flutter_date_picker: "^0.1.8"
 ```
 
 In your library add the following import:

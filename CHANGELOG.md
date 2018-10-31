@@ -1,3 +1,11 @@
+## 0.1.8
+
+- Minor type fix
+
+## 0.1.7
+
+- readme changes
+
 ## 0.1.6
 
 - minor code change
