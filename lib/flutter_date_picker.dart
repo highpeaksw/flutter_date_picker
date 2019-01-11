@@ -96,7 +96,7 @@ class DatePickerState extends State<DatePicker> {
   int get dobMonth => _selectedMonth;
   String get dobDate =>
       _selectedDate + 1 < 10 ? '0${_selectedDate + 1}' : '${_selectedDate + 1}';
-  int get dobYear => _initialYear + _selectedYear;
+  int get dobYear => _initialYear;
   String get dobStrMonth => _dobMonth;
 
   @override
