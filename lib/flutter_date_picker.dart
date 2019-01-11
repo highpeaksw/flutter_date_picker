@@ -89,7 +89,6 @@ class DatePickerState extends State<DatePicker> {
   int _fromYear;
   int _yearRange;
   int _initialYear;
-  int _toYear;
 
   String _dobMonth;
 
@@ -101,8 +100,7 @@ class DatePickerState extends State<DatePicker> {
 
   @override
   void initState() {
-    _fromYear = widget.fromYear??_date.year - 100;
-    _toYear = widget.toYear??_date.year + 20;
+    int _toYear = widget.toYear??_date.year + 20;
 
     assert(_fromYear <= _initialYear && _initialYear <= _toYear, 
       "Date Interval Error");
@@ -110,6 +108,7 @@ class DatePickerState extends State<DatePicker> {
     super.initState();
     _selectedMonth = _date.month - 1;
     _selectedDate = _date.day - 1;
+    _fromYear = widget.fromYear??_date.year - 100;
     _initialYear  = widget.initialYear??_date.year;
     _selectedYear = _initialYear - _fromYear;
     _yearRange = _toYear - _fromYear;
@@ -251,7 +250,7 @@ class DatePickerState extends State<DatePicker> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 6.0),
                           child: Text(
-                            '${_initialYear + index}',
+                            '${_fromYear + index}',
                             style: TextStyle(
                               color: _selectedYear == index
                                   ? Colors.white
