@@ -101,18 +101,15 @@ class DatePickerState extends State<DatePicker> {
   @override
   void initState() {
     int _toYear = widget.toYear??_date.year + 20;
-
-    assert(_fromYear <= _initialYear && _initialYear <= _toYear, 
-      "Date Interval Error");
-
     super.initState();
-    _selectedMonth = _date.month - 1;
-    _selectedDate = _date.day - 1;
     _fromYear = widget.fromYear??_date.year - 100;
     _initialYear  = widget.initialYear??_date.year;
+     assert(_fromYear <= _initialYear && _initialYear <= _toYear, 
+      "Date Interval Error");
     _selectedYear = _initialYear - _fromYear;
+    _selectedMonth = _date.month - 1;
+    _selectedDate = _date.day - 1;
     _yearRange = _toYear - _fromYear;
-
     _dobMonth = monthNames[_date.month - 1];
   }
 
