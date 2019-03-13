@@ -44,6 +44,10 @@ class DatePicker extends StatefulWidget {
     this.customItemColor = zItemColor,
     this.customShape = zShape,
     this.customGradient = zGradient,
+    this.customIcon = Icons.send,
+    this.fromYear,
+    this.toYear,
+    this.initialYear,
   }) : super(key: key);
 
   /// Function to get the data
@@ -58,6 +62,20 @@ class DatePicker extends StatefulWidget {
   /// Custom shape for the selected item
   final ShapeBorder customShape;
 
+  ///Custom icon for date validation
+  final IconData customIcon;
+
+  ///Year lower bound (ex: 1920)
+  final int fromYear;
+
+  ///Year upper bound (ex: 2020)
+  final int toYear;
+
+  //Ex: 1974
+  final int initialYear;
+
+
+
   @override
   DatePickerState createState() => DatePickerState();
 }
@@ -68,21 +86,30 @@ class DatePickerState extends State<DatePicker> {
   int _selectedMonth;
   int _selectedDate;
   int _selectedYear;
+  int _fromYear;
+  int _yearRange;
+  int _initialYear;
+
   String _dobMonth;
 
   int get dobMonth => _selectedMonth;
   String get dobDate =>
       _selectedDate + 1 < 10 ? '0${_selectedDate + 1}' : '${_selectedDate + 1}';
-  int get dobYear => (_date.year - 118) + _selectedYear;
+  int get dobYear => _initialYear;
   String get dobStrMonth => _dobMonth;
 
   @override
   void initState() {
+    int _toYear = widget.toYear??_date.year + 20;
     super.initState();
+    _fromYear = widget.fromYear??_date.year - 100;
+    _initialYear  = widget.initialYear??_date.year;
+     assert(_fromYear <= _initialYear && _initialYear <= _toYear, 
+      "Date Interval Error");
+    _selectedYear = _initialYear - _fromYear;
     _selectedMonth = _date.month - 1;
     _selectedDate = _date.day - 1;
-    _selectedYear = 74;
-
+    _yearRange = _toYear - _fromYear;
     _dobMonth = monthNames[_date.month - 1];
   }
 
@@ -216,11 +243,11 @@ class DatePickerState extends State<DatePicker> {
                           _selectedYear = index;
                         });
                       },
-                      children: List<Widget>.generate(118, (int index) {
+                      children: List<Widget>.generate(_yearRange, (int index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 6.0),
                           child: Text(
-                            '${(_date.year - 118) + index}',
+                            '${_fromYear + index}',
                             style: TextStyle(
                               color: _selectedYear == index
                                   ? Colors.white
@@ -261,7 +288,7 @@ class DatePickerState extends State<DatePicker> {
                       child: IconButton(
                         color: Colors.white,
                         icon: Icon(
-                          Icons.send,
+                          widget.customIcon,
                           size: 20.0,
                         ),
                         onPressed: () {
